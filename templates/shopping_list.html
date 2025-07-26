@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Shopping List{% endblock %}
+{% block content %}
+<h2>Shopping List</h2>
+<ul class="list-group">
+  {% for i in items %}
+    <li class="list-group-item">
+      {{ i.amount }} {{ i.unit }} {{ i.name }}
+    </li>
+  {% endfor %}
+</ul>
+<a href="{{ url_for('main.recipe_list') }}" class="btn btn-link mt-3">Back to Recipes</a>
+{% endblock %}

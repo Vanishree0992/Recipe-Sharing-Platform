@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}{{ r.title }}{% endblock %}
+{% block content %}
+<h2>{{ r.title }}</h2>
+{% if r.image %}
+<img src="{{ url_for('static', filename='uploads/'+r.image) }}" class="img-fluid mb-3">
+{% endif %}
+<p>{{ r.description }}</p>
+
+<h4>Ingredients</h4>
+<ul>
+  {% for ing in r.ingredients|fromjson %}
+    <li>{{ ing.amount }} {{ ing.unit }} {{ ing.name }}
+      — approx {{ convert(ing.amount,ing.unit,'g')|round(1) }} g
+    </li>
+  {% endfor %}
+</ul>
+
+<h5>Estimated Nutrition</h5>
+<p>Calories: {{ nutrition.calories }}</p>
+
+<h4>Reviews</h4>
+<ul class="list-group mb-3">
+  {% for rv in r.reviews %}
+    <li class="list-group-item"><strong>{{ rv.rating }}/5</strong>: {{ rv.comment }}</li>
+  {% else %}
+    <li class="list-group-item">No reviews yet.</li>
+  {% endfor %}
+</ul>
+
+{% if current_user.is_authenticated %}
+  <h5>Leave a Review</h5>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">{{ form.rating.label }}{{ form.rating(class="form-control") }}</div>
+    <div class="mb-3">{{ form.comment.label }}{{ form.comment(class="form-control") }}</div>
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+{% endif %}
+{% endblock %}

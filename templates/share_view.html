@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Share Recipe{% endblock %}
+{% block content %}
+<h2>Share This Recipe</h2>
+<p>Copy & share this link:</p>
+<pre>{{ share_url }}</pre>
+<a href="{{ url_for('main.recipe_detail', rid=recipe.id) }}" class="btn btn-link">View Recipe</a>
+{% endblock %}

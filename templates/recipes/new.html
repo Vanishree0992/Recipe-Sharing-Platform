@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}New Recipe{% endblock %}
+{% block content %}
+<h2>Submit a Recipe</h2>
+<form method="POST" enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">{{ form.title.label }}{{ form.title(class="form-control") }}</div>
+  <div class="mb-3">{{ form.description.label }}{{ form.description(class="form-control", rows="3") }}</div>
+  <div class="mb-3">{{ form.ingredients.label }}
+      {{ form.ingredients(class="form-control", rows="4") }}
+      <small class="form-text text-muted">Enter ingredients as JSON list.</small>
+  </div>
+  <div class="mb-3">{{ form.instructions.label }}{{ form.instructions(class="form-control", rows="5") }}</div>
+  <div class="mb-3">{{ form.image.label }}{{ form.image(class="form-control") }}</div>
+  <div class="mb-3">{{ form.dietary.label }}{{ form.dietary(class="form-select", multiple=True) }}</div>
+  <div class="d-grid">{{ form.submit(class="btn btn-outline-success") }}</div>
+</form>
+{% endblock %}
